@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201611090741497_DataMigration.Designer.cs">
       <DependentUpon>201611090741497_DataMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611090810450_DataMigration1.cs" />
+    <Compile Include="Migrations\201611090810450_DataMigration1.Designer.cs">
+      <DependentUpon>201611090810450_DataMigration1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Fingering.cs" />
@@ -296,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611090741497_DataMigration.resx">
       <DependentUpon>201611090741497_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611090810450_DataMigration1.resx">
+      <DependentUpon>201611090810450_DataMigration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

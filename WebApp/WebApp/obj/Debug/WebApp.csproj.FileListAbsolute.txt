@@ -102,3 +102,4 @@ D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.pdb
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.InitialCreate.resources
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.csproj.GenerateResource.Cache
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.DataMigration.resources
+D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.DataMigration1.resources
