@@ -1,8 +1,10 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
+using WebApp.Models;
 
 namespace WebApp.Parser
 {
@@ -12,31 +14,27 @@ namespace WebApp.Parser
         {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(page);
-            var c = doc.DocumentNode.SelectSingleNode(@"/html/body/table/tbody");
+            List<Singer> hrefSingers = new List<Singer>();
+            for (int i=0; i < 30; i++)
+            {
 
+                var link = doc.DocumentNode.SelectSingleNode(@"/html/body/div[@class='content-table']/article[@class='g-padding-left']/table[@class='items']/tbody/tr/tb[@class='artist_name']/a[@href]/");
+                HtmlAttribute linkToSinger = link.Attributes["href"];
+                var context = new ApplicationDbContext ();
+                //проверка на существование в бд linq??
+                if (!context.Singers.Where(p => p.LinkToSinger == linkToSinger.Value).Any())
+                {
+                    link = doc.DocumentNode.SelectSingleNode(@"/html/body/div[@class='content-table']/article[@class='g-padding-left']/table[@class='items']/tbody/tr/tb[@class='photo']/a[@href]/");
+                    HtmlAttribute photo = link.Attributes["href"];
+                    link = doc.DocumentNode.SelectSingleNode(@"/html/body/div[@class='content-table']/article[@class='g-padding-left']/table[@class='items']/tbody/tr/tb[@class='artist_name']/a[@class='artist']/");
+                    HtmlAttribute name = link.Attributes["href"];
+                    link = doc.DocumentNode.SelectSingleNode(@"/html/body/div[@class='content-table']/article[@class='g-padding-left']/table[@class='items']/tbody/tr/tb[@class='number']/");
+                    HtmlAttribute countSongs = link.Attributes["tb"];
+                    hrefSingers.Add(new Singer(photo.Value, name.Value, countSongs.Value, linkToSinger.Value));
+                }
+            }
             return "";
-
-            //var tableElements = new List<ReadOnlyCollection<string>>();
-            //if (c != null)
-            //{
-            //    var nodes = c.SelectNodes("//t");
-            //    int m = 0;
-            //    do
-            //    {
-            //        var tableRow = new List<string>();
-            //        tableRow.Add(nodes[m++].InnerText.Trim());
-            //        tableRow.Add(nodes[m++].InnerText.Trim());
-            //        tableRow.Add(nodes[m++].InnerText.Trim());
-            //        tableElements.Add(tableRow.AsReadOnly());
-            //    } while (m < nodes.Count);
-            //}
-            //return 
-            //var nodes = doc.DocumentNode.SelectNodes("//div[@class='browse2-results']/*/div[@class='tt-a']");
-            //return nodes
-            //    .Cast<HtmlNode>()
-            //    .Aggregate(
-            //        string.Empty,
-            //        (current, node) => current + node.OuterHtml);
+            
         }
     }
 }

@@ -19,5 +19,13 @@ namespace WebApp.Models
         {
             SuiteChords = new List<SuiteСhord>();
         }
+
+        public Singer(string name, string picture, string countSongs, string linkToSinger)
+        {
+            this.Name = name;
+            this.Picture = picture;
+            this.CountSongs = countSongs;
+            this.LinkToSinger = linkToSinger;
+        }
     }
 }
