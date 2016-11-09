@@ -9,9 +9,11 @@ namespace WebApp.Models
     {
         public int Singerid { get; set; }
         public string Name { get; set; } 
-        public string Surname { get; set; }
         public string Biography { get; set; }
         public string Picture { get; set; }
+        public string CountSongs { get; set; }
+        public string LinkToSinger { get; set; }
+
         public ICollection<SuiteСhord> SuiteChords{get; set;}
         public Singer ()
         {

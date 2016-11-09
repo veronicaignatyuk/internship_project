@@ -13,12 +13,10 @@ namespace WebApp.Models
         public string Video { get; set; }
         public int? SingerId { get; set; }
         public Singer Singer { get; set; }
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public ICollection<Lyrics> ListOfLyrics { get; set; }
-        public SuiteСhord()       
+        public ICollection<Fingering> Fingerings { get; set; }
+        public SuiteСhord()
         {
-            ListOfLyrics = new List<Lyrics>();
+            Fingerings = new List<Fingering>();
         }
     }
 }

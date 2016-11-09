@@ -10,12 +10,6 @@ namespace WebApp.Models
     // Чтобы добавить данные профиля для пользователя, можно добавить дополнительные свойства в класс ApplicationUser. Дополнительные сведения см. по адресу: http://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
-
-        public ICollection <SuiteСhord> SuiteChords { get; set; }
-        public ApplicationUser()
-        {
-            SuiteChords = new List<SuiteСhord>();
-        }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
@@ -32,8 +26,13 @@ namespace WebApp.Models
         {
         }
 
+        public DbSet<Singer> Singers { get; set; }
+        public DbSet<SuiteСhord> SuiteСhords { get; set; }
+        public DbSet<Fingering> Lyrics { get; set; }
+
         public static ApplicationDbContext Create()
-        {
+        { 
+            
             return new ApplicationDbContext();
         }
     }
