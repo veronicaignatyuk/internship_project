@@ -10,7 +10,7 @@ namespace WebApp.Parser
 {
     public class TopSingers
     {
-        public static string GetSingers(string page)
+        public static void GetSingers(string page)
         {
             var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
@@ -41,9 +41,6 @@ namespace WebApp.Parser
                     }
                 }
             }
-
-            return "ok";
-
         }
     }
 }

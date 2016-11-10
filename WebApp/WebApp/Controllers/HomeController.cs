@@ -14,6 +14,8 @@ namespace WebApp.Controllers
 
         public ActionResult Index()
         {
+            IEnumerable<Singer> singers = db.Singers;
+            ViewBag.Singers = singers;
             return View();
         }
 
@@ -32,9 +34,12 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public string UpdateTop()
+        public ActionResult UpdateTop()
         {
-            return TopSingers.GetSingers("http://amdm.ru/chords/") ;
+           TopSingers.GetSingers("http://amdm.ru/chords/") ;
+            IEnumerable<Singer> singers = db.Singers;
+            ViewBag.Singers = singers;
+            return View("Index"); ;
         }
     }
 }
