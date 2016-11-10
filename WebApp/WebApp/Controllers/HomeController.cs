@@ -34,7 +34,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public string UpdateTop()
         {
-            return TopSingers.GetSingers("http://amdm.ru/chords/").First().Name.ToString() ;
+            return TopSingers.GetSingers("http://amdm.ru/chords/") ;
         }
     }
 }
