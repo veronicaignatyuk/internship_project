@@ -12,6 +12,7 @@ namespace WebApp.Models
         public string Biography { get; set; }
         public string Picture { get; set; }
         public string CountSongs { get; set; }
+        public string CountViews{ get; set; }
         public string LinkToSinger { get; set; }
 
         public ICollection<SuiteСhord> SuiteChords{get; set;}
@@ -20,11 +21,12 @@ namespace WebApp.Models
             SuiteChords = new List<SuiteСhord>();
         }
 
-        public Singer(string name, string picture, string countSongs, string linkToSinger)
+        public Singer(string name, string picture, string countSongs, string countViews, string linkToSinger)
         {
             this.Name = name;
             this.Picture = picture;
             this.CountSongs = countSongs;
+            this.CountViews = countViews;
             this.LinkToSinger = linkToSinger;
         }
     }

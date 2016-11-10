@@ -111,3 +111,4 @@ D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.csprojResolveAssemb
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.MigrateDB.resources
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.csproj.GenerateResource.Cache
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.AddField.resources
+D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.AddFieldcountViews.resources
