@@ -10,7 +10,7 @@ namespace WebApp.Parser
 {
     public class Parser
     {
-        private static string GetSingers(string page)
+        private static List<Singer> GetSingers(string page)
         {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(page);
@@ -33,7 +33,7 @@ namespace WebApp.Parser
                     hrefSingers.Add(new Singer(photo.Value, name.Value, countSongs.Value, linkToSinger.Value));
                 }
             }
-            return "";
+            return hrefSingers;
             
         }
     }

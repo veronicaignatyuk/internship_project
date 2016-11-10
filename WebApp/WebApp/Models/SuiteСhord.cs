@@ -11,6 +11,7 @@ namespace WebApp.Models
         public string Name { get; set; }
         public int CountViews { get; set; }
         public string Video { get; set; }
+        public string Text { get; set; }
         public int? SingerId { get; set; }
         public Singer Singer { get; set; }
         public ICollection<Fingering> Fingerings { get; set; }

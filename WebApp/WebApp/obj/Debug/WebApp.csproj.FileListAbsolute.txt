@@ -110,3 +110,4 @@ D:\Project\internship_project\WebApp\WebApp\bin\HtmlAgilityPack.xml
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.csprojResolveAssemblyReference.cache
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.MigrateDB.resources
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.csproj.GenerateResource.Cache
+D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.AddField.resources
