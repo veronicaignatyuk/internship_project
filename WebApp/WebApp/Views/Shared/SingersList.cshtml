@@ -1,6 +1,6 @@
-﻿    <table>
+﻿    <table class="table table-hover">
         <tr>
-            <td><p>Singers</p></td>
+            <td colspan="2"><p>Singers</p></td>
             <td><p>Count songs</p></td>
             <td><p>Count views</p></td>
         </tr>
@@ -8,7 +8,7 @@
         {
             <tr>
                 <td><img src="@Url.Content(s.Picture)" /></td>
-                <td>@s.Name</td>
+                <td><a>@s.Name</a></td>
                 <td>@s.CountSongs</td>
                 <td>@s.CountViews</td>
             </tr>
