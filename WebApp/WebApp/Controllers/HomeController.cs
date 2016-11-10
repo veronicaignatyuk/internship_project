@@ -39,7 +39,7 @@ namespace WebApp.Controllers
            TopSingers.GetSingers("http://amdm.ru/chords/") ;
             IEnumerable<Singer> singers = db.Singers;
             ViewBag.Singers = singers;
-            return View("Index"); ;
+            return View("Index"); 
         }
     }
 }
