@@ -1,4 +1,6 @@
-﻿    <table class="table table-hover table-condensed">
+﻿@using WebApp.Models
+@model Singer 
+ <table class="table table-hover table-condensed">
         <caption>
             <strong>  Популярные исполнители</strong>
         </caption>
@@ -9,14 +11,17 @@
                 <td><p>Count views</p></td>
             </tr>
         </thead>
-        @foreach (var s in ViewBag.Singers)
-        {
-            <tr>
-                <td><img src="@Url.Content(s.Picture)" /></td>
-                <td class='artist_name'>
-                @Html.ActionLink((string)@s.Name, "Singer", "Singer")</td>
-                <td>@s.CountSongs</td>
-                <td>@s.CountViews</td>
-            </tr>
-        }
+         @using (Html.BeginForm("Singer", "Home", FormMethod.Get))
+         {
+            foreach (var s in ViewBag.Singers)
+            {
+                <tr>
+                    <td><img src="@Url.Content(s.Picture)" /></td>
+                    <td class='artist_name'>
+                    @Html.ActionLink((string)@s.Name, "Singer", "Home" , routeValues: new { id = (int)@s.Singerid }, htmlAttributes: null)</td>
+                    <td>@s.CountSongs</td>
+                    <td>@s.CountViews</td>
+                </tr>
+                }
+            }
     </table>

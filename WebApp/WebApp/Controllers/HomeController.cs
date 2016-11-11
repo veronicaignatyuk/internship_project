@@ -32,10 +32,11 @@ namespace WebApp.Controllers
 
             return View();
         }
-        public ActionResult Singer()
-        {
-            ViewBag.Message = "Your contact page.";
 
+        [HttpGet]
+        public ActionResult Singer(int id)
+        {
+            ViewBag.id = id;
             return View();
         }
         [HttpGet]
