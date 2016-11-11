@@ -1,4 +1,7 @@
-﻿    <table class="table table-hover">
+﻿    <table class="table table-hover table-condensed">
+        <caption>
+            <strong>  Популярные исполнители</strong>
+        </caption>
        <thead>
              <tr>
                 <td class='artist_name' colspan="2"><p>Singers</p></td>
@@ -10,7 +13,8 @@
         {
             <tr>
                 <td><img src="@Url.Content(s.Picture)" /></td>
-                <td class='artist_name'><a>@s.Name</a></td>
+                <td class='artist_name'>
+                @Html.ActionLink((string)@s.Name, "Singer", "Singer")</td>
                 <td>@s.CountSongs</td>
                 <td>@s.CountViews</td>
             </tr>

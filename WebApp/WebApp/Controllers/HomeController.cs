@@ -32,7 +32,12 @@ namespace WebApp.Controllers
 
             return View();
         }
+        public ActionResult Singer()
+        {
+            ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
         [HttpGet]
         public ActionResult UpdateTop()
         {

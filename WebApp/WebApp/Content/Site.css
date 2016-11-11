@@ -22,13 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
-
+caption{
+    font-size:20px;
+    text-align:left;
+}
 .table{
     text-align:center;
 }
 
-.table td , .table thead{
+.table td {
     vertical-align: middle !important;
+}
+.table thead  p {
+    margin: 0px!important;
 }
 
 
