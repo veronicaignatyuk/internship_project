@@ -121,3 +121,4 @@ D:\Project\internship_project\WebApp\WebApp\bin\System.Web.Http.WebHost.xml
 D:\Project\internship_project\WebApp\WebApp\bin\ru\System.Net.Http.Formatting.resources.dll
 D:\Project\internship_project\WebApp\WebApp\bin\ru\System.Web.Http.resources.dll
 D:\Project\internship_project\WebApp\WebApp\bin\ru\System.Web.Http.WebHost.resources.dll
+D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.BigPicture.resources

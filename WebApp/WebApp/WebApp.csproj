@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201611100951274_AddFieldcountViews.Designer.cs">
       <DependentUpon>201611100951274_AddFieldcountViews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611111118338_BigPicture.cs" />
+    <Compile Include="Migrations\201611111118338_BigPicture.Designer.cs">
+      <DependentUpon>201611111118338_BigPicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Fingering.cs" />
@@ -333,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611100951274_AddFieldcountViews.resx">
       <DependentUpon>201611100951274_AddFieldcountViews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611111118338_BigPicture.resx">
+      <DependentUpon>201611111118338_BigPicture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
