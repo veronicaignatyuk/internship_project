@@ -1,3 +1,28 @@
-﻿
+﻿<h1>@ViewBag.singer.Name</h1>
+<div class="singer_info">
+    <img src="@Url.Content(@ViewBag.singer.Picture)" />
+    <div class="left">
+        <p>@ViewBag.singer.CountSongs Suite Chords</p>
+        <p>@ViewBag.singer.Biography</p>
+    </div>
+</div>
+<div id="container">
+    <table class="table table-hover table-condensed">
+        <caption>
+            <strong> Suite Chords</strong>
+        </caption>
+        <thead>
+            <tr>
+                <td class='artist_name' colspan="2"><p>Title</p></td>
+                <td><p>Video</p></td>
+                <td><p>Count views</p></td>
+            </tr>
+        </thead>
+        <tr>
+            <td class='artist_name' colspan="2"><p>Title</p></td>
+            <td><p>Video</p></td>
+            <td><p>Count views</p></td>
+        </tr>
+    </table>
 
-<h1>@ViewBag.id</h1>
+</div>

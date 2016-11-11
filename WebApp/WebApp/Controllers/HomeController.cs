@@ -36,7 +36,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult Singer(int id)
         {
-            ViewBag.id = id;
+            Singer singer = db.Singers.Find(id);
+            ViewBag.Singer = singer;
             return View();
         }
         [HttpGet]
