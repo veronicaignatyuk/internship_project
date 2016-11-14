@@ -328,6 +328,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\SingersList.cshtml" />
     <Content Include="Views\Singer\Singer.cshtml" />
+    <Content Include="Views\Shared\ChordList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

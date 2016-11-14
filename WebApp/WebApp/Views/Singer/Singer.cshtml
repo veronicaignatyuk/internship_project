@@ -20,11 +20,14 @@
                 <td><p>Count views</p></td>
             </tr>
         </thead>
-        <tr>
-            <td class='artist_name' colspan="2"><p>Title</p></td>
-            <td><p>Video</p></td>
-            <td><p>Count views</p></td>
-        </tr>
+        @foreach (var s in Model.SuiteChords)
+        {
+            <tr>
+                <td class='artist_name' colspan="2"><p>Model.Name</p></td>
+                <td><p>Model.Video</p></td>
+                <td><p>Model.CountViews</p></td>
+            </tr>
+        }
     </table>
 
 </div>
