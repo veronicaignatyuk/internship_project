@@ -1,9 +1,11 @@
-﻿<h1>@ViewBag.singer.Name</h1>
+﻿@model WebApp.Models.Singer
+
+<h1>@Model.Name</h1>
 <div class="singer_info">
-    <img src="@Url.Content(@ViewBag.singer.BigPicture)" />
+    <img src="@Url.Content(@Model.BigPicture)" />
     <div class="left">
-        <p>@ViewBag.singer.CountSongs Suite Chords</p>
-        <p>@ViewBag.singer.Biography</p>
+        <p>@Model.CountSongs Suite Chords</p>
+        @Model.Biography 
     </div>
 </div>
 <div id="container">

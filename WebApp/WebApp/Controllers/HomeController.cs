@@ -14,9 +14,7 @@ namespace WebApp.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Singer> singers = db.Singers;
-            ViewBag.Singers = singers;
-            return View();
+            return View(db.Singers.ToList());
         }
 
         public ActionResult About()
@@ -36,17 +34,13 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult Singer(int id)
         {
-            Singer singer = db.Singers.Find(id);
-            ViewBag.Singer = singer;
-            return View();
+            return View(db.Singers.Find(id));
         }
         [HttpGet]
         public ActionResult UpdateTop()
         {
            TopSingers.GetSingers("http://amdm.ru/chords/") ;
-            IEnumerable<Singer> singers = db.Singers;
-            ViewBag.Singers = singers;
-            return View("Index"); 
+            return Redirect("~/Home/Index");
         }
     }
 }

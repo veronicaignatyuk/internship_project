@@ -1,5 +1,4 @@
-﻿@using WebApp.Models
-@model Singer 
+﻿@model IEnumerable<WebApp.Models.Singer> 
  <table class="table table-hover table-condensed">
         <caption>
             <strong>  Popular singers</strong>
@@ -11,9 +10,8 @@
                 <td><p>Count views</p></td>
             </tr>
         </thead>
-         @using (Html.BeginForm("Singer", "Home", FormMethod.Get))
-         {
-            foreach (var s in ViewBag.Singers)
+
+            @foreach (var s in Model )
             {
                 <tr>
                     <td><img src="@Url.Content(s.Picture)" /></td>
@@ -23,5 +21,4 @@
                     <td>@s.CountViews</td>
                 </tr>
                 }
-            }
     </table>

@@ -22,7 +22,7 @@ namespace WebApp.Models
             SuiteChords = new List<SuiteСhord>();
         }
 
-        public Singer(string name, string picture, string countSongs, string countViews, string linkToSinger, string bigPicture)
+        public Singer(string name, string picture, string countSongs, string countViews, string linkToSinger, string bigPicture, string biography)
         {
             this.Name = name;
             this.Picture = picture;
@@ -30,6 +30,7 @@ namespace WebApp.Models
             this.CountViews = countViews;
             this.LinkToSinger = linkToSinger;
             this.BigPicture = bigPicture;
+            this.Biography = biography; 
         }
     }
 }
