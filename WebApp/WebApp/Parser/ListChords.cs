@@ -56,8 +56,14 @@ namespace WebApp.Parser
             HtmlWeb hw = new HtmlWeb();
             doc = hw.Load(page);
             var text = doc.DocumentNode.SelectSingleNode("//div[@class='b-podbor__text']/pre");
-            return HttpUtility.HtmlDecode(text.InnerText);
-            //*[@id="body"]/div[3]/article/div[1]/div[1]/div[4]/pre/text()[17]
+            if (text != null)
+            {
+                return HttpUtility.HtmlDecode(text.InnerText);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
