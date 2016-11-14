@@ -16,7 +16,9 @@
                 <tr>
                     <td><img src="@Url.Content(s.Picture)" /></td>
                     <td class='artist_name'>
-                    @Html.ActionLink((string)@s.Name, "Singer", "Home" , routeValues: new { id = (int)@s.Singerid }, htmlAttributes: null)</td>
+                        @*@Ajax.ActionLink((string)@s.Name, "Singer", "Home",  new { id = (int)@s.Singerid }, new AjaxOptions { HttpMethod = "Post" })*@
+                        @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = (int)@s.Singerid }, htmlAttributes: null)
+                    </td>
                     <td>@s.CountSongs</td>
                     <td>@s.CountViews</td>
                 </tr>

@@ -9,7 +9,7 @@ namespace WebApp.Models
     {
         public int SuiteСhordId { get; set; }
         public string Name { get; set; }
-        public int CountViews { get; set; }
+        public string CountViews { get; set; }
         public string Video { get; set; }
         public string Text { get; set; }
         public int? SingerId { get; set; }
@@ -18,6 +18,15 @@ namespace WebApp.Models
         public SuiteСhord()
         {
             Fingerings = new List<Fingering>();
+        }
+        public SuiteСhord(string name, string countViews, string video, string text,  Singer singer)
+        {
+            this.Name = name;
+            this.CountViews = countViews;
+            this.Video = video;
+            this.Text = text;
+            this.Singer = singer;
+            this.SingerId = singer.Singerid;
         }
     }
 }

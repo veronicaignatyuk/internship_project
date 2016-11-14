@@ -30,12 +30,6 @@ namespace WebApp.Controllers
 
             return View();
         }
-
-        [HttpGet]
-        public ActionResult Singer(int id)
-        {
-            return View(db.Singers.Find(id));
-        }
         [HttpGet]
         public ActionResult UpdateTop()
         {

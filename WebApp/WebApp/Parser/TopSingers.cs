@@ -26,7 +26,6 @@ namespace WebApp.Parser
                     {
                         HtmlNode rep = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@href]");
                         string linkToSinger = rep.Attributes["href"].Value;
-
                         if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
                         {
                             string bigPicture = GetSingerPhoto(linkToSinger);
@@ -40,6 +39,7 @@ namespace WebApp.Parser
                             rep = repeater.SelectSingleNode("td[@class='number'][2]");
                             string countViews = rep.InnerText;
                             context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
+                            ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                             context.SaveChanges();
                         }
                     }

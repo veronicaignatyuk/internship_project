@@ -13,7 +13,7 @@ namespace WebApp.Models
         public string Picture { get; set; }
         public string BigPicture { get; set; }
         public string CountSongs { get; set; }
-        public string CountViews{ get; set; }
+        public string CountViews { get; set; }
         public string LinkToSinger { get; set; }
 
         public ICollection<SuiteСhord> SuiteChords{get; set;}

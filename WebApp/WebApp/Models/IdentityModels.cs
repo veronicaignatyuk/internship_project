@@ -28,7 +28,7 @@ namespace WebApp.Models
 
         public DbSet<Singer> Singers { get; set; }
         public DbSet<SuiteСhord> SuiteСhords { get; set; }
-        public DbSet<Fingering> Lyrics { get; set; }
+        public DbSet<Fingering> Fingerings { get; set; }
 
         public static ApplicationDbContext Create()
         { 
