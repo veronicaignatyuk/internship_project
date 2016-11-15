@@ -11,42 +11,27 @@ namespace WebApp.Parser
     public class ListFingerings
     {
 
-        public static void GetFingering(string page, Singer singer)
+        public static void GetFingering(string page, SuiteСhord suiteChord)
         {
             var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
-            page = "http:" + page.Substring(0, page.Length - 1);
             doc = hw.Load(page);
-            var repeaters = doc.DocumentNode.SelectNodes("//table/tr");//*[@id="tablesort"]/tbody/tr
+            var repeaters = doc.DocumentNode.SelectNodes("//div[@id='song_chords']");
             if (repeaters != null)
             {
                 foreach (var repeater in repeaters)
                 {
                     if (repeater != null)
                     {
-                        HtmlNode rep = repeater.SelectSingleNode(".//td/a/text()");
-                        string name = rep.InnerText;
-                        if (name == "RinaOnish")
+                        string name = repeater.SelectSingleNode(".//img[@alt]").Attributes["alt"].Value;
+
+                        name =name.Substring(7, name.Length - 7);
+                        if (!context.Fingerings.Any(p => p.Name == name))
                         {
-                            break;
+                            string picture = "http:"+repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
+                            context.Fingerings.Add(new Fingering(name, picture, suiteChord ));
                         }
-                        rep = repeater.SelectSingleNode(".//td/a[@href]");
-                        string linkToText = "http:" + rep.Attributes["href"].Value.Substring(0, rep.Attributes["href"].Value.Length - 1);
-                        rep = repeater.SelectSingleNode(".//td[@class='number icon']/i[@class='fa fa-youtube-play']");
-                        string video;
-                        if (rep != null)
-                        {
-                            video = rep.OuterHtml;
-                        }
-                        else
-                        {
-                            video = null;
-                        }
-                        rep = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']");
-                        string countViews = rep.InnerText;
-                        string text = getText(linkToText);
-                        context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, singer));
                         context.SaveChanges();
                     }
                 }

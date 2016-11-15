@@ -48,6 +48,8 @@ namespace WebApp.Parser
                         string text = getText(linkToText);
                         context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, singer));
                         context.SaveChanges();
+                        //ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
+                        //context.SaveChanges();
                     }
                 }
             }
@@ -60,7 +62,9 @@ namespace WebApp.Parser
             HtmlWeb hw = new HtmlWeb();
             doc = hw.Load(page);
             var bigPicture = doc.DocumentNode.SelectSingleNode("//div[@class='b-video-container']/iframe[@src]");
-            return bigPicture.Attributes["src"].Value;
+            if (bigPicture != null)
+                return bigPicture.Attributes["src"].Value;
+            else return null;
         }
 
         private static string getText(string page)

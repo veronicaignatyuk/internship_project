@@ -34,9 +34,10 @@ namespace WebApp.Parser
                             string name = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']").InnerText;
                             string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
                             string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
-                            context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
-                            ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
+                            //context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                             //context.SaveChanges();
+                            //ListChords.GetChords(linkToSinger, context.Singers.Single(p => p.LinkToSinger == linkToSinger));
+                            ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                         }
                     }
                 }
