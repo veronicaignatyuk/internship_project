@@ -41,9 +41,17 @@ caption{
 .table .artist_name{
     text-align:left;
 }
-.singer_info{
+.positions_cont{
     display:block;
 }
-.singer_info img{
+.positions_cont img{
     float:right;
+}
+
+pre{
+    float:left;
+    width:500px;
+}
+.chords{
+float:right;
 }

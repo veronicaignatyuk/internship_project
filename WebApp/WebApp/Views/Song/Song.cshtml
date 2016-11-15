@@ -8,4 +8,17 @@
         <p>Song : @Model.Name</p>
         <p>@Model.CountViews Count Views</p>
         <p>Singer: @Model.Singer.Name</p>
-        <pre>@Model.Text</pre>
+        <div  class="row positions_cont" >
+            
+                <pre>@Model.Text</pre>
+           
+            <div class="span6 chords">
+                <h3>Аппликатуры аккордов</h3>
+                <div id="song_chords">
+                    @foreach (var s in Model.Fingerings)
+                    {
+                        <img src="@Url.Content(s.Picture)" />
+                    }
+                </div>
+            </div>
+        </div>
