@@ -11,10 +11,12 @@ namespace WebApp.Controllers
     public class SingerController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        
+
         public ActionResult Singer(int? id)
         {
-            return View(db.Singers.Find(id));
+            Singer singer = db.Singers.Find(id);
+            singer.SuiteChords = db.SuiteСhords.Where(p => p.SingerId == id).ToList();
+            return View(singer);
         }
 
     }

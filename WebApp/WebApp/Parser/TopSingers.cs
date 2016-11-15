@@ -30,17 +30,13 @@ namespace WebApp.Parser
                         {
                             string bigPicture = GetSingerPhoto(linkToSinger);
                             string biography = GetSingerBiography(linkToSinger);
-                            rep = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]");
-                            string photo = rep.Attributes["src"].Value;
-                            rep = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']");
-                            string name = rep.InnerText;
-                            rep = repeater.SelectSingleNode("td[@class='number'][1]");
-                            string countSongs = rep.InnerText;
-                            rep = repeater.SelectSingleNode("td[@class='number'][2]");
-                            string countViews = rep.InnerText;
+                            string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
+                            string name = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']").InnerText;
+                            string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
+                            string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
                             context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                             ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
-                            context.SaveChanges();
+                            //context.SaveChanges();
                         }
                     }
                 }

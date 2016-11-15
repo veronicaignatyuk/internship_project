@@ -18,26 +18,30 @@ namespace WebApp.Parser
             HtmlWeb hw = new HtmlWeb();
             page = "http:" + page.Substring(0, page.Length - 1);
             doc = hw.Load(page);
-            var repeaters = doc.DocumentNode.SelectNodes("//table/tr");
+            var repeaters = doc.DocumentNode.SelectNodes("//table/tr");//*[@id="tablesort"]/tbody/tr
             if (repeaters != null)
             {
                 foreach (var repeater in repeaters)
                 {
                     if (repeater != null)
                     {
-                        HtmlNode rep = repeater.SelectSingleNode(".//td/a");
+                        HtmlNode rep = repeater.SelectSingleNode(".//td/a/text()");
                         string name = rep.InnerText;
+                        if (name == "RinaOnish")
+                        {
+                            break;
+                        }
                         rep = repeater.SelectSingleNode(".//td/a[@href]");
                         string linkToText = "http:" + rep.Attributes["href"].Value.Substring(0, rep.Attributes["href"].Value.Length - 1);
                         rep = repeater.SelectSingleNode(".//td[@class='number icon']/i[@class='fa fa-youtube-play']");
                         string video;
                         if (rep != null)
                         {
-                             video = rep.InnerText;
+                            video = rep.OuterHtml;
                         }
                         else
                         {
-                             video = null;
+                            video = null;
                         }
                         rep = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']");
                         string countViews = rep.InnerText;
