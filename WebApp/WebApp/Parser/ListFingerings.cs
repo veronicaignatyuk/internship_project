@@ -8,10 +8,10 @@ using WebApp.Models;
 
 namespace WebApp.Parser
 {
-    public class ListChords
+    public class ListFingerings
     {
 
-        public static void GetChords(string page, Singer singer)
+        public static void GetFingering(string page, Singer singer)
         {
             var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
@@ -37,7 +37,7 @@ namespace WebApp.Parser
                         string video;
                         if (rep != null)
                         {
-                            video = getVideo(linkToText);
+                            video = rep.OuterHtml;
                         }
                         else
                         {
@@ -51,16 +51,6 @@ namespace WebApp.Parser
                     }
                 }
             }
-        }
-
-        private static string getVideo(string page)
-        {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            doc = hw.Load(page);
-            var bigPicture = doc.DocumentNode.SelectSingleNode("//div[@class='b-video-container']/iframe[@src]");
-            return bigPicture.Attributes["src"].Value;
         }
 
         private static string getText(string page)

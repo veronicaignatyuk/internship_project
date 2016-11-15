@@ -254,6 +254,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Singer.cs" />
     <Compile Include="Models\SuiteСhord.cs" />
+    <Compile Include="Parser\ListFingerings.cs" />
     <Compile Include="Parser\ListChords.cs" />
     <Compile Include="Parser\TopSingers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

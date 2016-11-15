@@ -48,7 +48,7 @@ caption{
     float:right;
 }
 
-pre{
+.songtext{
     float:left;
     width:500px;
 }
