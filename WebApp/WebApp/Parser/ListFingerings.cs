@@ -32,7 +32,12 @@ namespace WebApp.Parser
                             string picture = "http:"+repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
                             context.Fingerings.Add(new Fingering(name, picture, suiteChord ));
                         }
-                        context.SaveChanges();
+                        else
+                        {
+                            
+                            //получение из бд объекта и установление ссылки на него 
+                        }
+                         context.SaveChanges();
                     }
                 }
             }

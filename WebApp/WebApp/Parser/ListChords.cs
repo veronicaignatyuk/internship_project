@@ -46,10 +46,11 @@ namespace WebApp.Parser
                         rep = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']");
                         string countViews = rep.InnerText;
                         string text = getText(linkToText);
-                        context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, singer));
-                        context.SaveChanges();
+                        //context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, singer));
                         //ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
                         //context.SaveChanges();
+                        ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
+                        
                     }
                 }
             }
