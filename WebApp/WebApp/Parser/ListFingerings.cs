@@ -11,11 +11,8 @@ namespace WebApp.Parser
     public class ListFingerings
     {
 
-        public static void GetFingering(string page, int id)
+        public static void GetFingering(HtmlDocument doc, int id)
         {
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            doc = hw.Load(page);
             var repeaters = doc.DocumentNode.SelectNodes("//div[@id='song_chords']");
             if (repeaters != null)
             {
@@ -31,16 +28,15 @@ namespace WebApp.Parser
                             if (!context.Fingerings.Any(p => p.Name == name))
                             {
                                 string picture = "http:" + repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
-                                SuiteСhord suiteChord = context.SuiteСhords.Where(p => p.SuiteСhordId == id).First();
-                                suiteChord.Fingerings.Add(new Fingering(name, picture, context.SuiteСhords.Where(p => p.SuiteСhordId == id).First()));
+                                SuiteСhord suiteChord = context.SuiteСhords.First(p => p.SuiteСhordId == id);
+                                suiteChord.Fingerings.Add(new Fingering(name, picture, suiteChord));
                                 context.SuiteСhords.Add(suiteChord);
                             }
                             else
                             {
                                 //string picture = "http:" + repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
                                 Fingering fingering = context.Fingerings.First(p => p.Name == name);
-                                SuiteСhord suiteChord = context.SuiteСhords.Where(p => p.SuiteСhordId == id).First();
-                                suiteChord.Singer = context.Singers.Where(p => p.Singerid == suiteChord.SingerId).First();
+                                SuiteСhord suiteChord = context.SuiteСhords.First(p => p.SuiteСhordId == id);
                                 suiteChord.Fingerings.Add(fingering);
                                 context.SuiteСhords.Add(suiteChord);
 
@@ -49,23 +45,6 @@ namespace WebApp.Parser
                         }
                     }
                 }
-            }
-        }
-
-        private static string getText(string page)
-        {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            doc = hw.Load(page);
-            var text = doc.DocumentNode.SelectSingleNode("//div[@class='b-podbor__text']/pre");
-            if (text != null)
-            {
-                return HttpUtility.HtmlDecode(text.InnerText);
-            }
-            else
-            {
-                return null;
             }
         }
     }

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "SuiteChordList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model PagedList.IPagedList<WebApp.Models.SuiteСhord> 
+@using PagedList.Mvc;
+@using PagedList;
+<div id="container">
+    <table class="table table-hover table-condensed">
+        <caption>
+            <strong> Suite Chords</strong>
+        </caption>
+        <thead>
+            <tr>
+                <td class='artist_name' colspan="2"><p>Title</p></td>
+                <td><p>Video</p></td>
+                <td><p>Count views</p></td>
+            </tr>
+        </thead>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td class='artist_name' colspan="2">
+                    @Html.ActionLink((string)@s.Name, "Song", "Song", routeValues: new { id = (int)@s.SuiteСhordId }, htmlAttributes: null)
+                </td>
+                <td class="number icon">
+                    @if (@s.Video != null)
+                    {
+                        <i class="fa fa-youtube-play"></i>
+                    }
+                </td>
+                <td><p>@s.CountViews</p></td>
+            </tr>
+        }
+    </table>
+
+</div>

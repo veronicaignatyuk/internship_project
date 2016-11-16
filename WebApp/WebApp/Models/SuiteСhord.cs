@@ -13,8 +13,8 @@ namespace WebApp.Models
         public string Video { get; set; }
         public string Text { get; set; }
         public int? SingerId { get; set; }
-        public Singer Singer { get; set; }
-        public ICollection<Fingering> Fingerings { get; set; }
+        public virtual Singer Singer { get; set; }
+        public virtual ICollection<Fingering> Fingerings { get; set; }
         public SuiteСhord()
         {
             Fingerings = new List<Fingering>();

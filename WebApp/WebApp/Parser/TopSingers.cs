@@ -29,20 +29,23 @@ namespace WebApp.Parser
                         {
                             if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
                             {
-                                string bigPicture = GetSingerPhoto(linkToSinger);
-                                string biography = GetSingerBiography(linkToSinger);
+                                string SingerPage = "http:" + linkToSinger.Substring(0, linkToSinger.Length - 1);
+                                doc = hw.Load(SingerPage);
+                                string bigPicture = GetSingerPhoto(doc);
+                                string biography = GetSingerBiography(doc);
                                 string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
                                 string name = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']").InnerText;
                                 string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
                                 string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
                                 context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
-                                ListChords.GetChords(linkToSinger);
+                                context.SaveChanges();
+                                ListChords.GetChords(doc, linkToSinger);
 
                                 //ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                             }
                             else
                             {
-                                ListChords.GetChords(linkToSinger);
+                                ListChords.GetChords(doc, linkToSinger);
                             }
                             context.SaveChanges();
                         }
@@ -51,13 +54,9 @@ namespace WebApp.Parser
             }
         }
 
-        public static string GetSingerPhoto(string page)
+        public static string GetSingerPhoto(HtmlDocument doc)
         {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            page = "http:" + page.Substring(0, page.Length - 1);
-            doc = hw.Load(page);
+
             var bigPicture = doc.DocumentNode.SelectSingleNode("//div[@class='artist-profile__photo debug1']/img[@src]");
             if (bigPicture != null)
             {
@@ -66,13 +65,8 @@ namespace WebApp.Parser
             return null;
         }
 
-        public static string GetSingerBiography(string page)
+        public static string GetSingerBiography(HtmlDocument doc)
         {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            page = "http:" + page.Substring(0, page.Length - 1);
-            doc = hw.Load(page);
             var biography = doc.DocumentNode.SelectSingleNode("//div[@class='artist-profile__bio']/text()");
             if (biography != null)
             {

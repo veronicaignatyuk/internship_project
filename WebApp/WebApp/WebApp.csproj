@@ -348,6 +348,7 @@
     <Content Include="Views\Shared\SingersList.cshtml" />
     <Content Include="Views\Singer\Singer.cshtml" />
     <Content Include="Views\Song\Song.cshtml" />
+    <Content Include="Views\Shared\SuiteChordList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

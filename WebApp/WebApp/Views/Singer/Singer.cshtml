@@ -1,42 +1,25 @@
 ﻿@model WebApp.Models.Singer
-
+@using PagedList.Mvc;
+@using PagedList;
 <h1>@Model.Name</h1>
 <div class="positions_cont">
-    <div class="left">
+    <div class="left-cont">
         <p>@Model.CountSongs Suite Chords</p>
-        @Model.Biography
+        @if (Model.Biography != null)
+        {
+            @Model.Biography;
+        }
     </div>
-    <div class="right">
+    <div class="right-cont">
+        @if(Model.BigPicture != null)
+        { 
         <img src="@Url.Content(@Model.BigPicture)" />
+        }
+
     </div>
 </div>
 <div id="container">
-    <table class="table table-hover table-condensed">
-        <caption>
-            <strong> Suite Chords</strong>
-        </caption>
-        <thead>
-            <tr>
-                <td class='artist_name' colspan="2"><p>Title</p></td>
-                <td><p>Video</p></td>
-                <td><p>Count views</p></td>
-            </tr>
-        </thead>
-        @foreach (var s in Model.SuiteChords)
-        {
-            <tr>
-                <td class='artist_name' colspan="2">
-                    @Html.ActionLink((string)@s.Name, "Song", "Song", routeValues: new { id = (int)@s.SuiteСhordId }, htmlAttributes: null)
-                </td>
-                <td class="number icon">
-                    @if (@s.Video != null)
-                    {
-                        <i class="fa fa-youtube-play"></i>
-                    }
-                </td>
-                <td><p>@s.CountViews</p></td>
-            </tr>
-        }
-    </table>
+    @Html.Partial("SuiteChordList", @Model.SuiteChords.ToPagedList((int)ViewBag.page, 10))
 
+    @Html.PagedListPager(@Model.SuiteChords.ToPagedList((int)ViewBag.page, 10), page => Url.Action("Singer", new { page }))
 </div>

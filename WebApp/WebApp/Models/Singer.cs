@@ -16,7 +16,7 @@ namespace WebApp.Models
         public string CountViews { get; set; }
         public string LinkToSinger { get; set; }
 
-        public ICollection<SuiteСhord> SuiteChords{get; set;}
+        public virtual ICollection<SuiteСhord> SuiteChords{get; set;}
         public Singer ()
         {
             SuiteChords = new List<SuiteСhord>();

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApp.Models;
 using WebApp.Parser;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebApp.Controllers
 {
@@ -12,10 +14,10 @@ namespace WebApp.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Singer(int? id)
+        public ActionResult Singer(int? id, int? page)
         {
             Singer singer = db.Singers.Find(id);
-            singer.SuiteChords = db.SuiteСhords.Where(p => p.SingerId == id).ToList();
+            ViewBag.page =  (page ?? 1); 
             return View(singer);
         }
 

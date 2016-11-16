@@ -11,7 +11,7 @@ namespace WebApp.Models
         public int FingeringId { get; set; }
         public string Name { get; set; }
         public string Picture { get; set; }
-        public ICollection<SuiteСhord> SuiteСhords { get; set; }
+        public virtual ICollection<SuiteСhord> SuiteСhords { get; set; }
         public Fingering()
         {
             SuiteСhords = new List<SuiteСhord>();

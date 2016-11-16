@@ -37,21 +37,29 @@ caption{
     margin: 0px!important;
 }
 
-
 .table .artist_name{
     text-align:left;
 }
+
 .positions_cont{
     display:block;
 }
-.positions_cont img{
+
+.left-cont{
+    float:left;
+    width:70%;
+}
+
+.right-cont{
     float:right;
+    width:25%;
 }
 
 .songtext{
     float:left;
     width:50%;
 }
+
 .chords{
     float:right;
     width:45%;

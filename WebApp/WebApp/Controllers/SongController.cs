@@ -15,9 +15,6 @@ namespace WebApp.Controllers
         public ActionResult Song(int? id)
         {
             SuiteСhord suiteChord = db.SuiteСhords.Find(id);
-            suiteChord.Singer = db.Singers.Find(suiteChord.SingerId);
-            suiteChord.Fingerings = db.Fingerings.Where(p => p.SuiteСhords.Any(c => c.SuiteСhordId==suiteChord.SuiteСhordId)).ToList();
-            //suiteChord.Fingerings= db.Fingerings.Where(p=> p.SuiteСhords.Select(c => c.SuiteСhordId).Contains(suiteChord.SuiteСhordId)).ToList();
             return View(suiteChord);
         }
 

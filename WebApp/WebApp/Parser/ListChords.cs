@@ -11,12 +11,10 @@ namespace WebApp.Parser
     public class ListChords
     {
 
-        public static void GetChords(string link)
+
+        public static void GetChords(HtmlDocument doc, string link)
         {
-            HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
-            string page = "http:" + link.Substring(0, link.Length - 1);
-            doc = hw.Load(page);
             var repeaters = doc.DocumentNode.SelectNodes("//table[@id='tablesort']/tr");//*[@id="tablesort"]/tbody/tr
             if (repeaters != null)
             {
@@ -24,54 +22,45 @@ namespace WebApp.Parser
                 {
                     if (repeater != null)
                     {
-                        HtmlNode rep = repeater.SelectSingleNode(".//td/a/text()");
-                        string name = rep.InnerText;
-                        rep = repeater.SelectSingleNode(".//td/a[@href]");
+                        string name = repeater.SelectSingleNode(".//td/a/text()").InnerText;
+                        var rep = repeater.SelectSingleNode(".//td/a[@href]");
                         string linkToText = "http:" + rep.Attributes["href"].Value.Substring(0, rep.Attributes["href"].Value.Length - 1);
                         rep = repeater.SelectSingleNode(".//td[@class='number icon']/i[@class='fa fa-youtube-play']");
+                        doc = hw.Load(linkToText);
                         string video;
                         if (rep != null)
                         {
-                            video = getVideo(linkToText);
+                            video = getVideo(doc);
                         }
                         else
                         {
                             video = null;
                         }
-                        rep = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']");
-                        string countViews = rep.InnerText;
-                        string text = getText(linkToText);
-                        using(var context = new ApplicationDbContext())
+                        string countViews = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']").InnerText;
+                        string text = getText(doc);
+                        using (var context = new ApplicationDbContext())
                         {
                             context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, context.Singers.Where(p => p.LinkToSinger == link).First()));
                             //ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
                             context.SaveChanges();
                             int id = context.SuiteСhords.First(p => p.SingerId == context.Singers.FirstOrDefault(s => s.LinkToSinger == link).Singerid).SuiteСhordId;
-                            ListFingerings.GetFingering(linkToText, id);
+                            ListFingerings.GetFingering(doc, id);
                         }
                     }
                 }
             }
         }
 
-        private static string getVideo(string page)
+        private static string getVideo(HtmlDocument doc)
         {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            doc = hw.Load(page);
             var bigPicture = doc.DocumentNode.SelectSingleNode("//div[@class='b-video-container']/iframe[@src]");
             if (bigPicture != null)
                 return bigPicture.Attributes["src"].Value;
             else return null;
         }
 
-        private static string getText(string page)
+        private static string getText(HtmlDocument doc)
         {
-            var context = new ApplicationDbContext();
-            HtmlDocument doc = new HtmlDocument();
-            HtmlWeb hw = new HtmlWeb();
-            doc = hw.Load(page);
             var text = doc.DocumentNode.SelectSingleNode("//div[@class='b-podbor__text']/pre");
             if (text != null)
             {
