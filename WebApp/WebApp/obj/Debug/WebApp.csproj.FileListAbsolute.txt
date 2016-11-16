@@ -123,3 +123,7 @@ D:\Project\internship_project\WebApp\WebApp\bin\ru\System.Web.Http.resources.dll
 D:\Project\internship_project\WebApp\WebApp\bin\ru\System.Web.Http.WebHost.resources.dll
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.BigPicture.resources
 D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.Ch.resources
+D:\Project\internship_project\WebApp\WebApp\bin\PagedList.dll
+D:\Project\internship_project\WebApp\WebApp\bin\PagedList.Mvc.dll
+D:\Project\internship_project\WebApp\WebApp\bin\PagedList.xml
+D:\Project\internship_project\WebApp\WebApp\bin\PagedList.Mvc.xml

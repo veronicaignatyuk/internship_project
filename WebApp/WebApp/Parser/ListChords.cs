@@ -11,14 +11,13 @@ namespace WebApp.Parser
     public class ListChords
     {
 
-        public static void GetChords(string page, Singer singer)
+        public static void GetChords(string link)
         {
-            var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
-            page = "http:" + page.Substring(0, page.Length - 1);
+            string page = "http:" + link.Substring(0, link.Length - 1);
             doc = hw.Load(page);
-            var repeaters = doc.DocumentNode.SelectNodes("//table/tr");//*[@id="tablesort"]/tbody/tr
+            var repeaters = doc.DocumentNode.SelectNodes("//table[@id='tablesort']/tr");//*[@id="tablesort"]/tbody/tr
             if (repeaters != null)
             {
                 foreach (var repeater in repeaters)
@@ -27,10 +26,6 @@ namespace WebApp.Parser
                     {
                         HtmlNode rep = repeater.SelectSingleNode(".//td/a/text()");
                         string name = rep.InnerText;
-                        if (name == "RinaOnish")
-                        {
-                            break;
-                        }
                         rep = repeater.SelectSingleNode(".//td/a[@href]");
                         string linkToText = "http:" + rep.Attributes["href"].Value.Substring(0, rep.Attributes["href"].Value.Length - 1);
                         rep = repeater.SelectSingleNode(".//td[@class='number icon']/i[@class='fa fa-youtube-play']");
@@ -46,11 +41,14 @@ namespace WebApp.Parser
                         rep = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']");
                         string countViews = rep.InnerText;
                         string text = getText(linkToText);
-                        //context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, singer));
-                        //ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
-                        //context.SaveChanges();
-                        ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
-                        
+                        using(var context = new ApplicationDbContext())
+                        {
+                            context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, context.Singers.Where(p => p.LinkToSinger == link).First()));
+                            //ListFingerings.GetFingering(linkToText, new SuiteСhord(name, countViews, video, text, singer));
+                            context.SaveChanges();
+                            int id = context.SuiteСhords.First(p => p.SingerId == context.Singers.FirstOrDefault(s => s.LinkToSinger == link).Singerid).SuiteСhordId;
+                            ListFingerings.GetFingering(linkToText, id);
+                        }
                     }
                 }
             }

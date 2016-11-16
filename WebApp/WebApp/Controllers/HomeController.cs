@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApp.Models;
 using WebApp.Parser;
+using PagedList.Mvc;
+using PagedList;
 
 namespace WebApp.Controllers
 {
@@ -12,9 +14,11 @@ namespace WebApp.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Singers.ToList());
+            int pageSize =10;
+            int pageNumber = (page ?? 1);
+            return View(db.Singers.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult About()

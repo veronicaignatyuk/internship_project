@@ -13,7 +13,6 @@ namespace WebApp.Parser
 
         public static void GetSingers(string page)
         {
-            var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
             doc = hw.Load(page);
@@ -26,18 +25,26 @@ namespace WebApp.Parser
                     {
                         HtmlNode rep = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@href]");
                         string linkToSinger = rep.Attributes["href"].Value;
-                        if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
+                        using (var context = new ApplicationDbContext())
                         {
-                            string bigPicture = GetSingerPhoto(linkToSinger);
-                            string biography = GetSingerBiography(linkToSinger);
-                            string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
-                            string name = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']").InnerText;
-                            string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
-                            string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
-                            //context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
-                            //context.SaveChanges();
-                            //ListChords.GetChords(linkToSinger, context.Singers.Single(p => p.LinkToSinger == linkToSinger));
-                            ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
+                            if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
+                            {
+                                string bigPicture = GetSingerPhoto(linkToSinger);
+                                string biography = GetSingerBiography(linkToSinger);
+                                string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
+                                string name = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@class='artist']").InnerText;
+                                string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
+                                string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
+                                context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
+                                ListChords.GetChords(linkToSinger);
+
+                                //ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
+                            }
+                            else
+                            {
+                                ListChords.GetChords(linkToSinger);
+                            }
+                            context.SaveChanges();
                         }
                     }
                 }
@@ -52,7 +59,11 @@ namespace WebApp.Parser
             page = "http:" + page.Substring(0, page.Length - 1);
             doc = hw.Load(page);
             var bigPicture = doc.DocumentNode.SelectSingleNode("//div[@class='artist-profile__photo debug1']/img[@src]");
-            return bigPicture.Attributes["src"].Value; 
+            if (bigPicture != null)
+            {
+                return bigPicture.Attributes["src"].Value;
+            }
+            return null;
         }
 
         public static string GetSingerBiography(string page)
@@ -61,9 +72,9 @@ namespace WebApp.Parser
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
             page = "http:" + page.Substring(0, page.Length - 1);
-            doc = hw.Load(page); 
+            doc = hw.Load(page);
             var biography = doc.DocumentNode.SelectSingleNode("//div[@class='artist-profile__bio']/text()");
-            if(biography != null)
+            if (biography != null)
             {
                 return HttpUtility.HtmlDecode(biography.InnerText);
             }

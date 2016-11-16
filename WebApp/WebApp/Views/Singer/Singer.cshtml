@@ -2,10 +2,12 @@
 
 <h1>@Model.Name</h1>
 <div class="positions_cont">
-    <img src="@Url.Content(@Model.BigPicture)" />
     <div class="left">
         <p>@Model.CountSongs Suite Chords</p>
         @Model.Biography
+    </div>
+    <div class="right">
+        <img src="@Url.Content(@Model.BigPicture)" />
     </div>
 </div>
 <div id="container">

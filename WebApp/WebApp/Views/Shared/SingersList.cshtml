@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebApp.Models.Singer> 
+﻿@model PagedList.IPagedList<WebApp.Models.Singer> 
+@using PagedList.Mvc;
+
  <table class="table table-hover table-condensed">
         <caption>
             <strong>  Popular singers</strong>
@@ -24,3 +26,6 @@
                 </tr>
                 }
     </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

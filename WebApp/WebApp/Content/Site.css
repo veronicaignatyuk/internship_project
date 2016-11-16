@@ -50,8 +50,9 @@ caption{
 
 .songtext{
     float:left;
-    width:500px;
+    width:50%;
 }
 .chords{
-float:right;
+    float:right;
+    width:45%;
 }

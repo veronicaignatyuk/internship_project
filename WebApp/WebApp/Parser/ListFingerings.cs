@@ -11,9 +11,8 @@ namespace WebApp.Parser
     public class ListFingerings
     {
 
-        public static void GetFingering(string page, SuiteСhord suiteChord)
+        public static void GetFingering(string page, int id)
         {
-            var context = new ApplicationDbContext();
             HtmlDocument doc = new HtmlDocument();
             HtmlWeb hw = new HtmlWeb();
             doc = hw.Load(page);
@@ -26,18 +25,28 @@ namespace WebApp.Parser
                     {
                         string name = repeater.SelectSingleNode(".//img[@alt]").Attributes["alt"].Value;
 
-                        name =name.Substring(7, name.Length - 7);
-                        if (!context.Fingerings.Any(p => p.Name == name))
+                        name = name.Substring(7, name.Length - 7);
+                        using (var context = new ApplicationDbContext())
                         {
-                            string picture = "http:"+repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
-                            context.Fingerings.Add(new Fingering(name, picture, suiteChord ));
+                            if (!context.Fingerings.Any(p => p.Name == name))
+                            {
+                                string picture = "http:" + repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
+                                SuiteСhord suiteChord = context.SuiteСhords.Where(p => p.SuiteСhordId == id).First();
+                                suiteChord.Fingerings.Add(new Fingering(name, picture, context.SuiteСhords.Where(p => p.SuiteСhordId == id).First()));
+                                context.SuiteСhords.Add(suiteChord);
+                            }
+                            else
+                            {
+                                //string picture = "http:" + repeater.SelectSingleNode(".//img[@src]").Attributes["src"].Value;
+                                Fingering fingering = context.Fingerings.First(p => p.Name == name);
+                                SuiteСhord suiteChord = context.SuiteСhords.Where(p => p.SuiteСhordId == id).First();
+                                suiteChord.Singer = context.Singers.Where(p => p.Singerid == suiteChord.SingerId).First();
+                                suiteChord.Fingerings.Add(fingering);
+                                context.SuiteСhords.Add(suiteChord);
+
+                            }
+                            context.SaveChanges();
                         }
-                        else
-                        {
-                            
-                            //получение из бд объекта и установление ссылки на него 
-                        }
-                         context.SaveChanges();
                     }
                 }
             }
