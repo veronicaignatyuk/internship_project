@@ -7,7 +7,8 @@
         </caption>
        <thead>
              <tr>
-                <td class='artist_name' colspan="2"><p>Singers</p></td>
+                <td class='artist_name' colspan="2">
+                 @Html.ActionLink("Singer", "Index", new { sortOrder = ViewBag.NameSortParm })</td>
                 <td ><p>Count songs</p></td>
                 <td><p>Count views</p></td>
             </tr>
@@ -18,7 +19,6 @@
                 <tr>
                     <td><img src="@Url.Content(s.Picture)" /></td>
                     <td class='artist_name'>
-                        @*@Ajax.ActionLink((string)@s.Name, "Singer", "Home",  new { id = (int)@s.Singerid }, new AjaxOptions { HttpMethod = "Post" })*@
                         @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = (int)@s.Singerid }, htmlAttributes: null)
                     </td>
                     <td>@s.CountSongs</td>
@@ -27,4 +27,4 @@
                 }
     </table>
    
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }))
