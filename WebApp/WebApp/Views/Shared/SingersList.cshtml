@@ -7,10 +7,9 @@
         </caption>
        <thead>
              <tr>
-                <td class='artist_name' colspan="2">
-                 @Html.ActionLink("Singer", "Index", new { sortOrder = ViewBag.NameSortParm })</td>
-                <td ><p>Count songs</p></td>
-                <td><p>Count views</p></td>
+                <td class='artist_name' colspan="2">@Html.ActionLink("Singer", "Index", new { sortOrder = ViewBag.NameSortParm })</td>
+                 <td>@Html.ActionLink("Count songs", "Index", new { sortOrder = ViewBag.CountSongsSortParm })</td>
+                 <td>@Html.ActionLink("Count views", "Index", new { sortOrder = ViewBag.CountViewsSortParm })</td>
             </tr>
         </thead>
 
@@ -19,7 +18,7 @@
                 <tr>
                     <td><img src="@Url.Content(s.Picture)" /></td>
                     <td class='artist_name'>
-                        @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = (int)@s.Singerid }, htmlAttributes: null)
+                        @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = @s.Singerid }, htmlAttributes: null)
                     </td>
                     <td>@s.CountSongs</td>
                     <td>@s.CountViews</td>
@@ -27,4 +26,4 @@
                 }
     </table>
    
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }))
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, id = ViewBag.id, sortOrder = ViewBag.CurrentSort }))

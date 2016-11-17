@@ -11,15 +11,14 @@
         }
     </div>
     <div class="right-cont">
-        @if(Model.BigPicture != null)
-        { 
+        @if (Model.BigPicture != null)
+        {
         <img src="@Url.Content(@Model.BigPicture)" />
         }
 
     </div>
 </div>
 <div id="container">
-    @Html.Partial("SuiteChordList", @Model.SuiteChords.ToPagedList((int)ViewBag.page, 10))
-
-    @Html.PagedListPager(@Model.SuiteChords.ToPagedList((int)ViewBag.page, 10), page => Url.Action("Singer", new { page }))
+    @{Html.RenderAction("ListSongs", "Singer", new { page= ViewBag.page, id=Model.Singerid});}
+    @Html.PagedListPager(@Model.SuiteChords.ToPagedList((int)ViewBag.page, 10), page => Url.Action("Singer", new { page , sortOrder = ViewBag.CurrentSort }))
 </div>

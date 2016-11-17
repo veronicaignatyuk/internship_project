@@ -40,10 +40,6 @@ namespace WebApp.Parser
                                 string countSongs = repeater.SelectSingleNode("td[@class='number'][1]").InnerText;
                                 string countViews = repeater.SelectSingleNode("td[@class='number'][2]").InnerText;
                                 context.Singers.Add(new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
-                                context.SaveChanges();
-                                ListChords.GetChords(doc, linkToSinger);
-
-                                //ListChords.GetChords(linkToSinger, new Singer(name, photo, countSongs, countViews, linkToSinger, bigPicture, biography));
                             }
                             else
                             {
@@ -52,18 +48,15 @@ namespace WebApp.Parser
                                 {
                                     context.Entry(singer).State = EntityState.Modified;
                                     singer.BigPicture= GetSingerPhoto(doc);
-                                    context.SaveChanges();
                                 }
                                 if (singer.Biography == null)
                                 {
                                     context.Entry(singer).State = EntityState.Modified;
                                     singer.Biography = GetSingerBiography(doc);
-                                    context.SaveChanges();
                                 }
-                               // context.SaveChanges();
-                                ListChords.GetChords(doc, linkToSinger);
                             }
-                            //context.SaveChanges();
+                            context.SaveChanges();
+                            ListSongs.GetSongs(doc, linkToSinger);
                         }
                     }
                 }

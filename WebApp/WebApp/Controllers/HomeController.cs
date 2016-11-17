@@ -21,10 +21,24 @@ namespace WebApp.Controllers
             int pageNumber = (page ?? 1);
             var singers = db.Singers.ToList();
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CountSongsSortParm = sortOrder == "songs" ? "songs_desc" : "songs";
+            ViewBag.CountViewsSortParm = sortOrder == "views" ? "views_desc" : "views";
             switch (sortOrder)
                 {
                     case "name_desc":
                         singers = singers.OrderByDescending(s => s.Name).ToList();
+                        break;
+                    case "songs_desc":
+                        singers = singers.OrderByDescending(s => s.CountSongs).ToList();
+                        break;
+                    case "songs":
+                        singers = singers.OrderBy(s => s.CountSongs).ToList();
+                        break;
+                    case "views_desc":
+                        singers = singers.OrderByDescending(s => s.CountViews).ToList();
+                        break;
+                    case "views":
+                        singers = singers.OrderBy(s => s.CountViews).ToList();
                         break;
                     default:
                         singers = singers.OrderBy(s => s.Name).ToList();

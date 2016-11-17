@@ -22,7 +22,7 @@
         {
             <tr>
                 <td class='artist_name' colspan="2">
-                    @Html.ActionLink((string)@s.Name, "Song", "Song", routeValues: new { id = (int)@s.SuiteСhordId }, htmlAttributes: null)
+                    @Html.ActionLink((string)@s.Name, "Song", "Song", routeValues: new { id = @s.SuiteСhordId }, htmlAttributes: null)
                 </td>
                 <td class="number icon">
                     @if (@s.Video != null)

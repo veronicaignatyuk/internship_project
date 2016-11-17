@@ -9,11 +9,11 @@ using WebApp.Models;
 
 namespace WebApp.Parser
 {
-    public class ListChords
+    public class ListSongs
     {
 
 
-        public static void GetChords(HtmlDocument doc, string link)
+        public static void GetSongs(HtmlDocument doc, string link)
         {
             HtmlWeb hw = new HtmlWeb();
             var repeaters = doc.DocumentNode.SelectNodes("//table[@id='tablesort']/tr");//*[@id="tablesort"]/tbody/tr
