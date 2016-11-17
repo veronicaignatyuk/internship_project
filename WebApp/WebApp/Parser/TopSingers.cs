@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using WebApp.Models;
@@ -25,12 +26,13 @@ namespace WebApp.Parser
                     {
                         HtmlNode rep = repeater.SelectSingleNode(".//td[@class='artist_name']/a[@href]");
                         string linkToSinger = rep.Attributes["href"].Value;
+                        string SingerPage = "http:" + linkToSinger.Substring(0, linkToSinger.Length - 1);
+                        doc = hw.Load(SingerPage);
                         using (var context = new ApplicationDbContext())
                         {
                             if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
                             {
-                                string SingerPage = "http:" + linkToSinger.Substring(0, linkToSinger.Length - 1);
-                                doc = hw.Load(SingerPage);
+ 
                                 string bigPicture = GetSingerPhoto(doc);
                                 string biography = GetSingerBiography(doc);
                                 string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
@@ -45,9 +47,23 @@ namespace WebApp.Parser
                             }
                             else
                             {
+                                Singer singer = context.Singers.First(p => p.LinkToSinger == linkToSinger);
+                                if (singer.BigPicture == null)
+                                {
+                                    context.Entry(singer).State = EntityState.Modified;
+                                    singer.BigPicture= GetSingerPhoto(doc);
+                                    context.SaveChanges();
+                                }
+                                if (singer.Biography == null)
+                                {
+                                    context.Entry(singer).State = EntityState.Modified;
+                                    singer.Biography = GetSingerBiography(doc);
+                                    context.SaveChanges();
+                                }
+                               // context.SaveChanges();
                                 ListChords.GetChords(doc, linkToSinger);
                             }
-                            context.SaveChanges();
+                            //context.SaveChanges();
                         }
                     }
                 }

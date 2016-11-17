@@ -127,3 +127,4 @@ D:\Project\internship_project\WebApp\WebApp\bin\PagedList.dll
 D:\Project\internship_project\WebApp\WebApp\bin\PagedList.Mvc.dll
 D:\Project\internship_project\WebApp\WebApp\bin\PagedList.xml
 D:\Project\internship_project\WebApp\WebApp\bin\PagedList.Mvc.xml
+D:\Project\internship_project\WebApp\WebApp\obj\Debug\WebApp.Migrations.LinkToText.resources
