@@ -3,44 +3,19 @@
     ViewBag.Title = "Song";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model WebApp.Models.SuiteСhord
+@model IEnumerable<WebApp.Models.SuiteСhord>
+<script src="~/Scripts/ajaxSender.js"></script>
 <div class="carousel-inner" role="listbox">
+    <div class="item active">
+        @{Html.RenderAction("OneSong", "Song", new { suiteChordId = (int)ViewBag.suiteChordId });}
+    </div>
+</div>
+@if (ViewBag.CurrentId > 0)
+{
+    @Ajax.ActionLink("OneSong", "Song", new { suiteChordId = ViewBag.Prev }, new AjaxOptions());
+}
+@if (ViewBag.Next < ViewBag.Count)
+{
+    @Html.ActionLink("Next", "Navigation", "Song", new { suiteChordId = (int)ViewBag.Next, idDB = (int)ViewBag.DB }, null)
 
-        <div class="item active">
-            <br />
-            <h4>Song : @Model.Name</h4>
-            <p>@Model.CountViews Count Views</p>
-            <h4>Singer : @Model.Singer.Name</h4>
-            <div class="row positions_cont">
-                <div class="span5 songtext">
-                    <pre>@Model.Text</pre>
-
-                    @if (Model.Video != null)
-                    {
-                        <br />
-                        <h2>Video:</h2>
-                        <br />
-                        <iframe src="@Url.Content(Model.Video)" width="560" height="315"></iframe>
-                    }
-                </div>
-                <div class="span6 chords">
-                    <h3>Аппликатуры аккордов</h3>
-                    <div id="song_chords">
-                        @foreach (var s in Model.Fingerings)
-                        {
-                            <img src="@Url.Content(s.Picture)" />
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-
- </div>
-<a class="left carousel-control" onclick="" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-</a>
-<a class="right carousel-control"onclick="" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-</a>
+}

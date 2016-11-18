@@ -64,3 +64,13 @@ caption{
     float:right;
     width:45%;
 }
+
+.carousel-control {
+    width: 5%;
+    height: 60em;
+    margin: 0 auto;
+}
+
+.carousel-inner {
+    overflow:visible;
+}

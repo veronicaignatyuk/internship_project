@@ -1,29 +1,29 @@
-﻿@model PagedList.IPagedList<WebApp.Models.Singer> 
+﻿@model PagedList.IPagedList<WebApp.Models.Singer>
 @using PagedList.Mvc;
 
- <table class="table table-hover table-condensed">
-        <caption>
-            <strong>  Popular singers</strong>
-        </caption>
-       <thead>
-             <tr>
-                <td class='artist_name' colspan="2">@Html.ActionLink("Singer", "Index", new { sortOrder = ViewBag.NameSortParm })</td>
-                 <td>@Html.ActionLink("Count songs", "Index", new { sortOrder = ViewBag.CountSongsSortParm })</td>
-                 <td>@Html.ActionLink("Count views", "Index", new { sortOrder = ViewBag.CountViewsSortParm })</td>
-            </tr>
-        </thead>
+<table class="table table-hover table-condensed">
+    <caption>
+        <strong>  Popular singers</strong>
+    </caption>
+    <thead>
+        <tr>
+            <td class='artist_name' colspan="2">@Html.ActionLink("Singer", "Index", new { sortOrder = ViewBag.NameSortParm })</td>
+            <td>@Html.ActionLink("Count songs", "Index", new { sortOrder = ViewBag.CountSongsSortParm })</td>
+            <td>@Html.ActionLink("Count views", "Index", new { sortOrder = ViewBag.CountViewsSortParm })</td>
+        </tr>
+    </thead>
 
-            @foreach (var s in Model )
-            {
-                <tr>
-                    <td><img src="@Url.Content(s.Picture)" /></td>
-                    <td class='artist_name'>
-                        @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = @s.Singerid }, htmlAttributes: null)
-                    </td>
-                    <td>@s.CountSongs</td>
-                    <td>@s.CountViews</td>
-                </tr>
-                }
-    </table>
-   
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, id = ViewBag.id, sortOrder = ViewBag.CurrentSort }))
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td><img src="@Url.Content(s.Picture)" /></td>
+            <td class='artist_name'>
+                @Html.ActionLink((string)@s.Name, "Singer", "Singer", routeValues: new { id = @s.Singerid }, htmlAttributes: null)
+            </td>
+            <td>@s.CountSongs</td>
+            <td>@s.CountViews</td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, id = ViewBag.id, sortOrder = ViewBag.CurrentSort }))
