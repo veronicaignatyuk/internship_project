@@ -3,19 +3,22 @@
     ViewBag.Title = "Song";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<WebApp.Models.SuiteСhord>
-<script src="~/Scripts/ajaxSender.js"></script>
+@using WebApp.Models
+@using Newtonsoft.Json
+@model WebApp.Models.SuiteСhord
+
 <div class="carousel-inner" role="listbox">
-    <div class="item active">
-        @{Html.RenderAction("OneSong", "Song", new { suiteChordId = (int)ViewBag.suiteChordId });}
+    <div id="SongId" class="item active">
+        @Html.Partial("PartialSong", Model)
     </div>
 </div>
-@if (ViewBag.CurrentId > 0)
-{
-    @Ajax.ActionLink("OneSong", "Song", new { suiteChordId = ViewBag.Prev }, new AjaxOptions());
-}
-@if (ViewBag.Next < ViewBag.Count)
-{
-    @Html.ActionLink("Next", "Navigation", "Song", new { suiteChordId = (int)ViewBag.Next, idDB = (int)ViewBag.DB }, null)
-
-}
+<div>
+    @using (Ajax.BeginForm("Navigation", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "SongId" }))
+    {
+        <input type="hidden" id="id" name="id" value="@ViewBag.DBId" />
+        <input type="hidden" id="CurrentPage" name="CurrentPage" value="@ViewBag.CurrentPage" />
+        <input type="hidden" id="LastPage" name="LastPage" value="@ViewBag.Last" />
+    }
+    <input class="btn btn-primary" type="button" id="Previous" value="Previous" onclick="first()" />
+    <input class="btn btn-primary" type="button" id="Next" value="Next" onclick="first()" />
+</div>

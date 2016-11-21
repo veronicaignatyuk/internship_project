@@ -14,12 +14,12 @@ namespace WebApp.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Singer( int? page, int id, string sortOrder)
+        public ActionResult Singer(int? page, int id, string sortOrder)
         {
             //ViewBag.id = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; 
             //ViewBag.CurrentSort = sortOrder;
             Singer singer = db.Singers.Find(id);
-            ViewBag.page =  (page ?? 1);
+            ViewBag.page = (page ?? 1);
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             //switch (sortOrder)
             //{
@@ -39,7 +39,7 @@ namespace WebApp.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.page = pageNumber;
-            return PartialView("SuiteChordList", singer.SuiteChords.ToPagedList(pageNumber, pageSize));
+            return PartialView("SuiteChordList", singer.SuiteChords.OrderBy(s => s.SuiteСhordId).ToPagedList(pageNumber, pageSize));
         }
     }
 }

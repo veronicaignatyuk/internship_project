@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using WebApp.Models;
 
@@ -26,13 +27,18 @@ namespace WebApp.Parser
                         string name = repeater.SelectSingleNode(".//td/a/text()").InnerText;
                         var rep = repeater.SelectSingleNode(".//td/a[@href]");
                         string linkToText = "http:" + rep.Attributes["href"].Value.Substring(0, rep.Attributes["href"].Value.Length - 1);
+                        doc = hw.Load(linkToText);
+                        if (doc.DocumentNode.InnerText == "Too Many Requests")
+                        {
+                            Thread.Sleep(5000);
+                            doc = hw.Load(linkToText);
+                        }
                         using (var context = new ApplicationDbContext())
                         {
-                            doc = hw.Load(linkToText);
                             rep = repeater.SelectSingleNode(".//td[@class='number icon']/i[@class='fa fa-youtube-play']");
                             if (!context.SuiteСhords.Any(p => p.LinkToText == linkToText))
                             {
-                                string video = GetVideo(rep,doc);
+                                string video = GetVideo(rep, doc);
                                 string countViews = repeater.SelectSingleNode(".//td[@class = 'number hidden-phone']").InnerText;
                                 string text = GetText(doc);
                                 context.SuiteСhords.Add(new SuiteСhord(name, countViews, video, text, linkToText, context.Singers.Where(p => p.LinkToSinger == link).First()));
@@ -50,7 +56,7 @@ namespace WebApp.Parser
                                 if (suiteChord.Video == null)
                                 {
                                     context.Entry(suiteChord).State = EntityState.Modified;
-                                    suiteChord.Video = GetVideo(rep,doc);
+                                    suiteChord.Video = GetVideo(rep, doc);
                                     context.SaveChanges();
                                 }
                             }
@@ -63,7 +69,7 @@ namespace WebApp.Parser
             }
         }
 
-        private static string GetVideo(HtmlNode rep,HtmlDocument doc)
+        private static string GetVideo(HtmlNode rep, HtmlDocument doc)
         {
             string video = null;
             HtmlNode bigPicture;
@@ -83,7 +89,7 @@ namespace WebApp.Parser
             string text = null;
             if (textNode != null)
             {
-               text= HttpUtility.HtmlDecode(textNode.InnerText);
+                text = HttpUtility.HtmlDecode(textNode.InnerText);
             }
             return text;
 

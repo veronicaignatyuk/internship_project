@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using WebApp.Models;
 
@@ -28,11 +29,15 @@ namespace WebApp.Parser
                         string linkToSinger = rep.Attributes["href"].Value;
                         string SingerPage = "http:" + linkToSinger.Substring(0, linkToSinger.Length - 1);
                         doc = hw.Load(SingerPage);
+                        if (doc.DocumentNode.InnerText == "Too Many Requests")
+                        {
+                            Thread.Sleep(5000);
+                            doc = hw.Load(SingerPage);
+                        }
                         using (var context = new ApplicationDbContext())
                         {
                             if (!context.Singers.Any(p => p.LinkToSinger == linkToSinger))
                             {
- 
                                 string bigPicture = GetSingerPhoto(doc);
                                 string biography = GetSingerBiography(doc);
                                 string photo = repeater.SelectSingleNode(".//td[@class='photo']/a/img[@src]").Attributes["src"].Value;
@@ -47,7 +52,7 @@ namespace WebApp.Parser
                                 if (singer.BigPicture == null)
                                 {
                                     context.Entry(singer).State = EntityState.Modified;
-                                    singer.BigPicture= GetSingerPhoto(doc);
+                                    singer.BigPicture = GetSingerPhoto(doc);
                                 }
                                 if (singer.Biography == null)
                                 {

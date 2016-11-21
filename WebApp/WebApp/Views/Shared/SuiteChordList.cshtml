@@ -6,6 +6,7 @@
 @model PagedList.IPagedList<WebApp.Models.SuiteСhord>
 @using PagedList.Mvc;
 @using PagedList;
+@using Newtonsoft.Json;
 <div id="container">
     <table class="table table-hover table-condensed">
         <caption>
@@ -22,7 +23,7 @@
         {
             <tr>
                 <td class='artist_name' colspan="2">
-                    @Html.ActionLink((string)@s.Name, "Song", "Song", routeValues: new { id = @s.SuiteСhordId }, htmlAttributes: null)
+                    @Html.ActionLink((string)@s.Name, "Song", "Song", new { id = @s.SingerId, ids = @s.SuiteСhordId }, new { @class = "currsong" })
                 </td>
                 <td class="number icon">
                     @if (@s.Video != null)
