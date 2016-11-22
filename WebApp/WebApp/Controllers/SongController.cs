@@ -15,10 +15,8 @@ namespace WebApp.Controllers
 
         public ActionResult Song(int? id, int? ids)
         {
-            //ViewBag.suiteChordId = id;
             var suiteChord = db.SuiteСhords.Find(ids);
             var singersSongs = db.Singers.Find(id).SuiteChords.OrderBy(s => s.SuiteСhordId).ToList();
-            //ViewBag.Count = singersSongs.Count;
             ViewBag.CurrentPage = singersSongs.IndexOf(suiteChord);
             int curr = singersSongs.IndexOf(suiteChord);
             ViewBag.DBId = id;
@@ -38,8 +36,15 @@ namespace WebApp.Controllers
             return PartialView("PartialSong", singer.ElementAt(CurrentPage));
             //return RedirectToAction("Song","Song", new { id = model.SuiteСhordId , ids = model.SingerId});
         }
+        public ActionResult UpdateSong(int id)
+        {
+            string token = string.Join(",", db.Fingerings.Select(x => x.Name).ToList());
+            @ViewBag.Fingerings = token.ToString().Split(',');
+            SuiteСhord song = db.SuiteСhords.First(s => s.SuiteСhordId == id);
+            return View("UpdateSong",song);
+        }
         [HttpPost]
-        public ActionResult UpdateSong(Fingering model)
+        public ActionResult UpdateSong(SuiteСhord model)
         {
             //List<Fingering> fingerings = new List<Fingering>(); 
             //foreach (var fing in modelFing)
@@ -49,17 +54,19 @@ namespace WebApp.Controllers
             //fingerings.Add(db.Fingerings.First(f => f.Name == fing.Name));
             //    }
             //}
-            if (!string.IsNullOrEmpty(model.Name))
-            {
-                db.Entry(model).State = EntityState.Modified;
+            SuiteСhord suiteСhord = db.SuiteСhords.First(s => s.SuiteСhordId==model.SuiteСhordId);
+            suiteСhord.Text = model.Text;
+                db.Entry(suiteСhord).State = EntityState.Modified;
                 db.SaveChanges();
-            }
-            return View(model);
+            return RedirectToAction("Song", new { id = suiteСhord.SingerId, ids= suiteСhord.SuiteСhordId });
         }
 
-        public ActionResult GetTag()
+        public JsonResult GetTag(string term)
         {
-            var token = string.Join(",", db.Fingerings.ToList().Select(x => x.Name).ToList());
+            var token = "";
+            if (term != "")
+            token = string.Join(",", db.Fingerings.Where(f=> f.Name.Contains(term)).ToList().Select(x => x.Name).ToList());
+            else token = string.Join(",", db.Fingerings.ToList().Select(x => x.Name).ToList());
             return Json(new { data = token.ToString().Split(',') }, JsonRequestBehavior.AllowGet);
         }
     }

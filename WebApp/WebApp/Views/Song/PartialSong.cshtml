@@ -1,7 +1,8 @@
 ﻿@model WebApp.Models.SuiteСhord
-
+<input type="hidden" id="NextId" value="@ViewBag.NextId" />
 <br />
-<h4>Song : @Model.Name <input class="btn btn-primary" type="button" id="Edit" value="Edit" onclick="show();" /><input type="hidden" id="NextId" value="@ViewBag.NextId" /></h4>
+<h4>Song : @Model.Name 
+    @Html.ActionLink("Edit", "UpdateSong", "Song", new { id = Model.SuiteСhordId }, new { @class = "btn btn-primary" })</h4>
 <p>@Model.CountViews Count Views</p>
 @if (Model.Singer != null)
 {
@@ -16,7 +17,7 @@
             <br />
                     <h2>Video:</h2>
                         <br />
-                        <iframe src="@Url.Content(Model.Video)" width="560" height="315"></iframe>
+                        <object style="float: none; clear: both; margin: 2px auto;" data="@Url.Content(Model.Video)" width="560" height="315"></object>
         }
     </div>
     <div class="span6 chords">
@@ -32,33 +33,5 @@
         </div>
     </div>
 </div>
-@*@using (Html.BeginForm("UpdateSong", "Song", FormMethod.Post))
-{
-    <div class="row positions_cont" id="2" style="display:none">
-        <div class="span5 songtext">
-            @Html.TextAreaFor(m => m.Text, new { @class = "form-control s", @rows = "5" })
-        </div>
-        <div class="span6 chords">
-            <h3>Аппликатуры аккордов</h3>
-            <div id="song_chords">
-                @if (Model.Fingerings.Count != 0)
-                {
-                    string token = string.Join(",", Model.Fingerings.ToList().Select(x => x.Name).ToList());
-                    string[] str = token.ToString().Split(',');
-                    <input type="text" class="form-control" id="tokenfield-typeahead" value="red,green,blue" />
-                }
-            </div>
-        </div>
-
-        <div class="clearfix">&nbsp;</div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 text-right">
-                <input type="submit" value="Save" class="btn btn-info" id="submittoken" />
-            </div>
-        </div>
-    </div>
-}*@
-
-
 
 

@@ -8,9 +8,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-tokenfield/bootstrap-tokenfield.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-tokenfield/tokenfield-typeahead.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <link href="~/Content/bootstrap-tokenfield/bootstrap-tokenfield.css" rel="stylesheet" />
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,16 +38,17 @@
         @RenderBody()
         <hr />
     </div>
-
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/jquery-ui-1.8.13.min.js"></script>
-    <script src="~/Scripts/jquery-ui.unobtrusive.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @Scripts.Render("~/Scripts/MicrosoftAjax.js")
     @Scripts.Render("~/Scripts/MicrosoftMvcAjax.js")
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @*<script src="~/Scripts/typeahead.bundle.min.js"></script>*@
     <script src="~/Scripts/bootstrap-tokenfield.js"></script>
+    <script src="~/Scripts/typeahead.bundle.min.js"></script>
     <script src="~/Scripts/ajaxSender.js"></script>
+    <script src="~/Scripts/tags.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
