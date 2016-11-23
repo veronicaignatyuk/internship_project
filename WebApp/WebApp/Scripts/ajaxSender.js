@@ -68,11 +68,3 @@ function first() {
     window.history.pushState("", "", urlPath);
     return true;
 };
-
-//$('#tokenfield').tokenfield({
-//    autocomplete: {
-//        source: ['A', 'B'],
-//        delay: 100
-//    },
-//    showAutocompleteOnFocus: true
-//})

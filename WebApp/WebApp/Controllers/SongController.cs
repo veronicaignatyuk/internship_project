@@ -44,21 +44,48 @@ namespace WebApp.Controllers
             return View("UpdateSong",song);
         }
         [HttpPost]
-        public ActionResult UpdateSong(SuiteСhord model)
+        public ActionResult UpdateSong(int? id,string text, string tokenfield)
+       {
+            string[] token = tokenfield.ToString().Replace("  ", string.Empty).Split(',');
+             for(int i = 0; i< token.Length; i++)
+            {
+                token[i] = token[i].Trim();
+            }
+            SuiteСhord suiteСhordToUpdate = db.SuiteСhords.First(s => s.SuiteСhordId == id);
+            suiteСhordToUpdate.Text = text;
+            UpdateChords(token, suiteСhordToUpdate);
+            db.SaveChanges();
+            return RedirectToAction("Song", new { id = suiteСhordToUpdate.SingerId, ids= suiteСhordToUpdate.SuiteСhordId });
+        }
+
+        private void UpdateChords(string[] token, SuiteСhord suiteСhordToUpdate)
         {
-            //List<Fingering> fingerings = new List<Fingering>(); 
-            //foreach (var fing in modelFing)
-            //{
-            //    if (!string.IsNullOrEmpty(fing.Name))
-            //    {
-            //fingerings.Add(db.Fingerings.First(f => f.Name == fing.Name));
-            //    }
-            //}
-            SuiteСhord suiteСhord = db.SuiteСhords.First(s => s.SuiteСhordId==model.SuiteСhordId);
-            suiteСhord.Text = model.Text;
-                db.Entry(suiteСhord).State = EntityState.Modified;
-                db.SaveChanges();
-            return RedirectToAction("Song", new { id = suiteСhord.SingerId, ids= suiteСhord.SuiteСhordId });
+            if (token == null)
+            {
+                suiteСhordToUpdate.Fingerings = new List<Fingering>();
+                return;
+            }
+
+            var selectedChordsHS = new HashSet<string>(token);
+            var suiteChordFingering = new HashSet<string>
+                (suiteСhordToUpdate.Fingerings.Select(c => c.Name));
+            foreach (var chord in db.Fingerings)
+            {
+                if (selectedChordsHS.Contains(chord.Name.ToString()))
+                {
+                    if (!suiteChordFingering.Contains(chord.Name))
+                    {
+                        suiteСhordToUpdate.Fingerings.Add(chord);
+                    }
+                }
+                else
+                {
+                    if (suiteChordFingering.Contains(chord.Name))
+                    {
+                        suiteСhordToUpdate.Fingerings.Remove(chord);
+                    }
+                }
+            }
         }
 
         public JsonResult GetTag(string term)

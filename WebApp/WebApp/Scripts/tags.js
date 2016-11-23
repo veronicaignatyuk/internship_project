@@ -29,4 +29,27 @@
                 event.preventDefault();
         });
     });
+    //$("#submittoken").click(function () {
+    //    var sch = parseInt($('#Suite_hordId').val());
+    //    var text = $('#Text').val();
+    //    var token = $('#tokenfield').val();
+    //    console.log(sch);
+    //    console.log(text);
+    //    console.log(token);
+    //    $.ajax({
+    //        type: 'Post',
+    //        contentType: "application/json; charset=utf-8",
+    //        url: "/Song/UpdateSong",
+    //        dataType: 'json',
+    //        data: {
+    //            id: sch
+    //        },
+    //        success: function (data) {
+    //            response(data.data);
+    //        },
+    //        error: function (result) {
+    //            alert("Wrong")
+    //        }
+    //    });
+    //})
 });
